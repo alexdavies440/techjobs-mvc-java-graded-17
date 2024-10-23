@@ -24,6 +24,9 @@ public class SearchController {
     @GetMapping(value = "")
     public String search(Model model) {
         model.addAttribute("columns", columnChoices);
+        // replaces 'all' in th:value with 'checked' so that it still defaults to 'all'
+        // but can be updated upon changing search type
+        model.addAttribute("checked", "all");
         return "search";
     }
 
@@ -37,8 +40,11 @@ public class SearchController {
         // Creating variables to store and capture input values for radio and text inputs
         // which are linked by the name attribute,
         // then using those values to dynamically change the title based on user input
+
         model.addAttribute("columns", columnChoices);
         model.addAttribute("searchType", searchType);
+        // Here, if search type changes, it will be passed to 'checked' which will update in th:value
+        model.addAttribute("checked", searchType);
         model.addAttribute("searchTerm", searchTerm);
         model.addAttribute("title", "jobs with " + columnChoices.get(searchType) + ": " + searchTerm);
         // If a search term exists, filter based on column, including "All"
