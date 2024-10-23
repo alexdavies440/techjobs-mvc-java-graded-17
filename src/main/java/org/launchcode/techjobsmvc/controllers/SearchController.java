@@ -32,20 +32,22 @@ public class SearchController {
 
     @PostMapping("results")
     public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
-        ArrayList<Job> jobs;
-        if (searchType.equals("all") || searchTerm.isEmpty()){
-            jobs = JobData.findAll();
 
-        } else {
-            jobs = JobData.findByColumnAndValue(searchType, searchTerm);
-        }
-        model.addAttribute("jobs", jobs);
+        ArrayList<Job> jobs;
         // Creating variables to store and capture input values for radio and text inputs
         // which are linked by the name attribute,
         // then using those values to dynamically change the title based on user input
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchTerm", searchTerm);
         model.addAttribute("title", "jobs with " + columnChoices.get(searchType) + ": " + searchTerm);
+
+        if (searchType.equals("all") || searchTerm.isEmpty()){
+            jobs = JobData.findAll();
+        } else {
+            jobs = JobData.findByColumnAndValue(searchType, searchTerm);
+        }
+        model.addAttribute("jobs", jobs);
+
         return "search";
     }
 }
