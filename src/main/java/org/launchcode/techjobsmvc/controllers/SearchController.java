@@ -37,6 +37,7 @@ public class SearchController {
         // Creating variables to store and capture input values for radio and text inputs
         // which are linked by the name attribute,
         // then using those values to dynamically change the title based on user input
+        model.addAttribute("columns", columnChoices);
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchTerm", searchTerm);
         model.addAttribute("title", "jobs with " + columnChoices.get(searchType) + ": " + searchTerm);
