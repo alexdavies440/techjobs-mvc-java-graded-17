@@ -41,11 +41,13 @@ public class SearchController {
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchTerm", searchTerm);
         model.addAttribute("title", "jobs with " + columnChoices.get(searchType) + ": " + searchTerm);
-
-        if (searchType.equals("all") || searchTerm.isEmpty()){
-            jobs = JobData.findAll();
-        } else {
+        // If a search term exists, filter based on column, including "All"
+        if (!searchTerm.isEmpty()) {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
+        }
+        // If search field is blank, there is nothing to filter jobs by, therefore no matter the column choice, all jobs will display
+        else {
+            jobs = JobData.findAll();
         }
         model.addAttribute("jobs", jobs);
 
