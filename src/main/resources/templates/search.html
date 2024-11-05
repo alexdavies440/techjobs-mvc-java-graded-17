@@ -20,7 +20,8 @@
                         name="searchType"
                         th:id="${column.key}"
                         th:value="${column.key}"
-                        th:checked="${column.key == checked}"/>
+                        th:checked="${column.key == checked}"
+                />
                 <label th:for="${column.key}" th:text="${column.value}"></label>
             </span>
 
